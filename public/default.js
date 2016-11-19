@@ -160,7 +160,16 @@
         }
       };  
       
-    
+      var onDragMove = function(newLocation, oldLocation, source,
+                                  piece, position, orientation) {
+          console.log("New location: " + newLocation);
+          console.log("Old location: " + oldLocation);
+          console.log("Source: " + source);
+          console.log("Piece: " + piece);
+          console.log("Position: " + ChessBoard.objToFen(position));
+          console.log("Orientation: " + orientation);
+          console.log("--------------------");
+        };
       
       var onDrop = function(source, target) {
         // see if the move is legal
