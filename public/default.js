@@ -5,7 +5,8 @@
       
       var socket, serverGame;
       var username, playerColor;
-      var game, board;
+      var game, board, squareToHighlight;
+      var boardEl = $('#board');
       var usersOnline = [];
       var myGames = [];
       socket = io();
@@ -142,7 +143,8 @@
             position: serverGame.board ? serverGame.board : 'start',
             onDragStart: onDragStart,
             onDrop: onDrop,
-            onSnapEnd: onSnapEnd
+            onSnapEnd: onSnapEnd,
+            onMoveEnd: onMoveEnd
           };
                
           game = serverGame.board ? new Chess(serverGame.board) : new Chess();
@@ -169,6 +171,9 @@
           to: target,
           promotion: 'q' // NOTE: always promote to a queen for example simplicity
         });
+        removeHighlights('black');
+        boardEl.find('.square-' + move.from).addClass('highlight-black');
+        squareToHighlight = move.to;
       
         // illegal move
         if (move === null) { 
@@ -176,8 +181,17 @@
         } else {
            socket.emit('move', {move: move, gameId: serverGame.id, board: game.fen()});
         }
+
+        removeHighlights('white');
+        boardEl.find('.square-' + source).addClass('highlight-white');
+        boardEl.find('.square-' + target).addClass('highlight-white');
       
       };
+
+      var onMoveEnd = function() {
+        boardEl.find('.square-' + squareToHighlight)
+        .addClass('highlight-white');
+      }
       
       // update the board position after the piece snap 
       // for castling, en passant, pawn promotion
