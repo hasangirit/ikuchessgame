@@ -1,6 +1,18 @@
 <!doctype html>
 <html>
   <head>
+    <style type="text/css">
+       .highlight-white {
+        -webkit-box-shadow: inset 0 0 3px 3px white;
+        -moz-box-shadow: inset 0 0 3px 3px white;
+        box-shadow: inset 0 0 3px 3px white;  
+        }
+        .highlight-black {
+        -webkit-box-shadow: inset 0 0 3px 3px black;
+        -moz-box-shadow: inset 0 0 3px 3px black;
+        box-shadow: inset 0 0 3px 3px black;  
+        }
+      </style>
     <meta name="viewport" content="width=410; user-scalable=no; minimal-ui">
     <title>Real Chess 2</title>
     <link rel="stylesheet" href="lib/chessboard-0.3.0.min.css">
@@ -30,6 +42,9 @@
       <button id='game-quit'>Resign</button>
       <div id='game-board' style="width: 600px">
       </div>
+      <p>Status: <span id="status"></span></p>
+      <p>FEN: <span id="fen"></span></p>
+      <p>PGN: <span id="pgn"></span></p>
     </div>
 
     <script src="lib/socket.io-1.2.0.js"></script>
