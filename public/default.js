@@ -239,6 +239,7 @@
         fenEl.html(game.fen());
         pgnEl.html(game.pgn());
       };
+      updateStatus();
 
     });
 })();
