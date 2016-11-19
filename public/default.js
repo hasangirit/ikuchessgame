@@ -192,17 +192,21 @@
         boardEl.find('.square-' + move.target).addClass('highlight-'+move.color);
         squareToHighlight = move.to;
 
-        
+        updateStatus();
       };
 
       var onMoveEnd = function() {
+        console.log("onMoveEnd çağırıldı");
         boardEl.find('.square-' + squareToHighlight)
         .addClass('highlight-white');
+        updateStatus();
+        
       }
       
       // update the board position after the piece snap 
       // for castling, en passant, pawn promotion
       var onSnapEnd = function() {
+        console.log("onSnapEnd çağırıldı");
         board.position(game.fen());
       };
 
