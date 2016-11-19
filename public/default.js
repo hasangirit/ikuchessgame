@@ -176,9 +176,6 @@
           to: target,
           promotion: 'q' // NOTE: always promote to a queen for example simplicity
         });
-        removeHighlights(move.from);
-        boardEl.find('.square-' + move.from).addClass('highlight-'+move.from);
-        squareToHighlight = move.to;
       
         // illegal move
         if (move === null) { 
@@ -188,9 +185,9 @@
         }
 
         removeHighlights(move.from);
-        boardEl.find('.square-' + move.source).addClass('highlight-'+move.from);
-        boardEl.find('.square-' + move.target).addClass('highlight-'+move.from);
-      
+        boardEl.find('.square-' + move.source).addClass('highlight-white');
+        boardEl.find('.square-' + move.target).addClass('highlight-white');
+        squareToHighlight = move.to;
       };
 
       var onMoveEnd = function() {
