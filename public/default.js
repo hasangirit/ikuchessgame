@@ -154,6 +154,8 @@
           board = new ChessBoard('game-board', cfg);
       }
 
+      updateStatus();
+      
       var removeHighlights = function(color) {
       boardEl.find('.square-55d63')
         .removeClass('highlight-' + color);
