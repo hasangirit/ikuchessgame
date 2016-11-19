@@ -147,16 +147,35 @@
             onDragStart: onDragStart,
             onDrop: onDrop,
             onSnapEnd: onSnapEnd,
-            onMoveEnd: onMoveEnd
+            onMoveEnd: onMoveEnd,
+            onMouseoutSquare: onMouseoutSquare,
+            onMouseoverSquare: onMouseoverSquare
           };
                
           game = serverGame.board ? new Chess(serverGame.board) : new Chess();
           board = new ChessBoard('game-board', cfg);
       }
 
-      var removeHighlights = function(color) {
-      boardEl.find('.square-55d63')
-        .removeClass('highlight-' + color);
+      var removeGreySquares = function() {
+        //console.log("removeGreySquares çağırıldı");
+        $('#board .square-55d63').css('background', '');
+      };
+
+      var greySquare = function(square) {
+        //console.log("greySquare çağırıldı");
+        var squareEl = $('#board .square-' + square);
+          
+        var background = '#a9a9a9';
+        if (squareEl.hasClass('black-3c85d') === true) {
+          background = '#696969';
+        }
+
+        squareEl.css('background', background);
+        };
+        
+        var removeHighlights = function(color) {
+        boardEl.find('.square-55d63')
+          .removeClass('highlight-' + color);
       };
        
       // do not pick up pieces if the game is over
@@ -171,10 +190,11 @@
       };  
       
     
-      
+      var move;
       var onDrop = function(source, target) {
+        removeGreySquares();
         // see if the move is legal
-        var move = game.move({
+        move = game.move({
           from: source,
           to: target,
           promotion: 'q' // NOTE: always promote to a queen for example simplicity
@@ -196,17 +216,42 @@
       };
 
       var onMoveEnd = function() {
-        console.log("onMoveEnd çağırıldı");
+        //console.log("onMoveEnd çağırıldı");
         boardEl.find('.square-' + squareToHighlight)
         .addClass('highlight-white');
         updateStatus();
         
-      }
+      };
+
+      var onMouseoverSquare = function(square, piece) {
+        //console.log("onMouseoverSquare çağırıldı");
+  // get list of possible moves for this square
+           moves = game.moves({
+            square: square,
+            verbose: true
+          });
+
+          // exit if there are no moves available for this square
+          if (moves.length === 0) return;
+
+          // highlight the square they moused over
+          greySquare(square);
+
+          // highlight the possible squares for this piece
+          for (var i = 0; i < moves.length; i++) {
+            greySquare(moves[i].to);
+          }
+        };
+
+        var onMouseoutSquare = function(square, piece) {
+          //console.log("onMouseoutSquare çağırıldı");
+          removeGreySquares();
+        };
       
       // update the board position after the piece snap 
       // for castling, en passant, pawn promotion
       var onSnapEnd = function() {
-        console.log("onSnapEnd çağırıldı");
+        //console.log("onSnapEnd çağırıldı");
         board.position(game.fen());
       };
 
@@ -238,6 +283,10 @@
             status += ', ' + moveColor + ' is in check';
           }
         }
+        
+        if(moveColor=='White') moveColor='Black';
+        else moveColor='White';
+        console.log(moveColor + " ::"+ move.piece +":: "+move.from+"->"+move.to);
 
         statusEl.html(status);
         fenEl.html(game.fen());
