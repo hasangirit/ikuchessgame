@@ -187,7 +187,7 @@
            socket.emit('move', {move: move, gameId: serverGame.id, board: game.fen()});
         }
 
-        removeHighlights(black);
+        removeHighlights('black');
         boardEl.find('.square-' + move.source).addClass('highlight-white');
         boardEl.find('.square-' + move.target).addClass('highlight-white');
         squareToHighlight = move.to;
