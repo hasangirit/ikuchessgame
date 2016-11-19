@@ -141,7 +141,10 @@
         
           var cfg = {
             draggable: true,
-            showNotation: false,
+            showNotation: true,
+            moveSpeed: 'slow',
+            snapbackSpeed: 500,
+            snapSpeed: 100,
             orientation: playerColor,
             position: serverGame.board ? serverGame.board : 'start',
             onDragStart: onDragStart,
