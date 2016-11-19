@@ -150,6 +150,11 @@
           game = serverGame.board ? new Chess(serverGame.board) : new Chess();
           board = new ChessBoard('game-board', cfg);
       }
+
+      var removeHighlights = function(color) {
+      boardEl.find('.square-55d63')
+        .removeClass('highlight-' + color);
+      };
        
       // do not pick up pieces if the game is over
       // only pick up pieces for the side to move
@@ -171,8 +176,8 @@
           to: target,
           promotion: 'q' // NOTE: always promote to a queen for example simplicity
         });
-        removeHighlights('black');
-        boardEl.find('.square-' + move.from).addClass('highlight-black');
+        removeHighlights(move.from);
+        boardEl.find('.square-' + move.from).addClass('highlight-'+move.from);
         squareToHighlight = move.to;
       
         // illegal move
@@ -182,9 +187,9 @@
            socket.emit('move', {move: move, gameId: serverGame.id, board: game.fen()});
         }
 
-        removeHighlights('white');
-        boardEl.find('.square-' + source).addClass('highlight-white');
-        boardEl.find('.square-' + target).addClass('highlight-white');
+        removeHighlights(move.from);
+        boardEl.find('.square-' + move.source).addClass('highlight-'+move.from);
+        boardEl.find('.square-' + move.target).addClass('highlight-'+move.from);
       
       };
 
