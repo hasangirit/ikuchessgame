@@ -7,6 +7,9 @@
       var username, playerColor;
       var game, board, squareToHighlight;
       var boardEl = $('#board');
+      var statusEl = $('#status'),
+          fenEl = $('#fen'),
+          pgnEl = $('#pgn');
       var usersOnline = [];
       var myGames = [];
       socket = io();
@@ -184,10 +187,12 @@
            socket.emit('move', {move: move, gameId: serverGame.id, board: game.fen()});
         }
 
-        removeHighlights(move.from);
+        removeHighlights(black);
         boardEl.find('.square-' + move.source).addClass('highlight-white');
         boardEl.find('.square-' + move.target).addClass('highlight-white');
         squareToHighlight = move.to;
+
+        updateStatus();
       };
 
       var onMoveEnd = function() {
@@ -200,6 +205,41 @@
       var onSnapEnd = function() {
         board.position(game.fen());
       };
+
+      var updateStatus = function () {
+
+        var status = '';
+
+        var moveColor = 'White';
+        if (game.turn() === 'b') {
+          moveColor = 'Black';
+        }
+
+        // checkmate?
+        if (game.in_checkmate() === true) {
+          status = 'Game over, ' + moveColor + ' is in checkmate.';
+        }
+
+        // draw?
+        else if (game.in_draw() === true) {
+          status = 'Game over, drawn position';
+        }
+
+        // game still on
+        else {
+          status = moveColor + ' to move';
+
+          // check?
+          if (game.in_check() === true) {
+            status += ', ' + moveColor + ' is in check';
+          }
+        }
+
+        statusEl.html(status);
+        fenEl.html(game.fen());
+        pgnEl.html(game.pgn());
+      };
+
     });
 })();
 
