@@ -46,21 +46,12 @@
        <div id='userList'>
          No users online
       </div>
-    </div>
-    <div class="page game" id='page-game'>
-      <button id='game-back'>Back</button>
-      <button id='game-quit'>Resign</button>
-      <div id='game-board' style="width: 400px">
-      </div>
-      <p>Status: <span id="status"></span></p>
-      <p>PGN: <span id="pgn"></span></p>
-      <p></p>
+
+      <div style="width:500px;">
       <ul id="messages"></ul>
     <form action="">
       <input id="m" autocomplete="off" /><button>Send</button>
     </form>
-    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
       var socket = io();
       $('form').submit(function(){
@@ -72,6 +63,16 @@
         $('#messages').append($('<li>').text(msg));
       });
     </script>
+    </div>
+
+    </div>
+    <div style="float:left;" class="page game" id='page-game'>
+      <button id='game-back'>Back</button>
+      <button id='game-quit'>Resign</button>
+      <div id='game-board' style="width: 400px">
+      </div>
+      <p>Status: <span id="status"></span></p>
+      <p>PGN: <span id="pgn"></span></p>
     </div>
 
     <script src="lib/socket.io-1.2.0.js"></script>
