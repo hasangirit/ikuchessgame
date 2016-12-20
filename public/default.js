@@ -21,7 +21,7 @@
     '#3b88eb', '#3824aa', '#a700ff', '#d300e7'
     ];
     var $window = $(window);
-    var $usernameInput = $('.usernameInput'); // Input for username
+   
     var $messages = $('.messages'); // Messages area
     var $inputMessage = $('.inputMessage'); // Input message input box
 
@@ -32,7 +32,7 @@
     var connected = false;
     var typing = false;
     var lastTypingTime;
-    var $currentInput = $usernameInput.focus();
+    var $currentInput;
 
            
       //////////////////////////////
@@ -98,14 +98,14 @@ function setUsername () {
     //username = cleanInput($usernameInput.val().trim());
 
     // If the username is valid
-    if (username) {
+    if (msg.username) {
       $loginPage.fadeOut();
       $chatPage.show();
       $loginPage.off('click');
       $currentInput = $inputMessage.focus();
 
       // Tell the server your username
-      socket.emit('add user', username);
+      socket.emit('add user', msg.username);
     }
   }
 
@@ -118,7 +118,7 @@ function setUsername () {
     if (message && connected) {
       $inputMessage.val('');
       addChatMessage({
-        username: username,
+        username: msg.username,
         message: message
       });
       // tell server to execute 'new message' and send along one parameter
@@ -144,13 +144,13 @@ function setUsername () {
 
     var $usernameDiv = $('<span class="username"/>')
       .text(data.username)
-      .css('color', getUsernameColor(data.username));
+      .css('color', getUsernameColor(msg.username));
     var $messageBodyDiv = $('<span class="messageBody">')
       .text(data.message);
 
     var typingClass = data.typing ? 'typing' : '';
     var $messageDiv = $('<li class="message"/>')
-      .data('username', data.username)
+      .data('username', msg.username)
       .addClass(typingClass)
       .append($usernameDiv, $messageBodyDiv);
 
@@ -230,7 +230,7 @@ function setUsername () {
   // Gets the 'X is typing' messages of a user
   function getTypingMessages (data) {
     return $('.typing.message').filter(function (i) {
-      return $(this).data('username') === username;
+      return $(this).data('username') === msg.username;
     });
   }
 
@@ -255,7 +255,7 @@ function setUsername () {
     }
     // When the client hits ENTER on their keyboard
     if (event.which === 13) {
-      if (username) {
+      if (msg.username) {
         sendMessage();
         socket.emit('stop typing');
         typing = false;
@@ -301,13 +301,13 @@ function setUsername () {
 
   // Whenever the server emits 'user joined', log it in the chat body
   socket.on('user joined', function (data) {
-    log(username + ' joined');
+    log(msg.username + ' joined');
     addParticipantsMessage(data);
   });
 
   // Whenever the server emits 'user left', log it in the chat body
   socket.on('user left', function (data) {
-    log(username + ' left');
+    log(msg.username + ' left');
     addParticipantsMessage(data);
     removeChatTyping(data);
   });
@@ -326,10 +326,10 @@ function setUsername () {
     log('you have been disconnected');
   });
 
-  socket.on('reconnect', function () {
+  socket.on('reconnect', function (msg) {
     log('you have been reconnected');
-    if (username) {
-      socket.emit('add user', username);
+    if (msg.username) {
+      socket.emit('add user', msg.username);
     }
   });
 
