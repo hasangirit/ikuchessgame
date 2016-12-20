@@ -23,7 +23,7 @@ ul {
 
 /* Pages */
 
-.pages {
+.pageschat {
   height: 500px;
   margin: 0;
   padding: 0;
@@ -40,19 +40,19 @@ ul {
     sans-serif;
 }
 
-.page {
+.pagechat {
   height: 500px;
   position: absolute;
   width: 500px;
 }
 
-/* Login Page */
+/* loginchatchat Page */
 
-.login.page {
+.loginchat.pagechat {
   background-color: #000;
 }
 
-.login.page .form {
+.loginchat.pagechat .form {
   height: 100px;
   margin-top: -100px;
   position: absolute;
@@ -62,7 +62,7 @@ ul {
   width: 100%;
 }
 
-.login.page .form .usernameInput {
+.loginchat.pagechat .form .usernameInput {
   background-color: transparent;
   border: none;
   border-bottom: 2px solid #fff;
@@ -72,23 +72,23 @@ ul {
   width: 400px;
 }
 
-.login.page .title {
+.loginchat.pagechat .title {
   font-size: 200%;
 }
 
-.login.page .usernameInput {
+.loginchat.pagechat .usernameInput {
   font-size: 200%;
   letter-spacing: 3px;
 }
 
-.login.page .title, .login.page .usernameInput {
+.loginchat.pagechat .title, .loginchat.pagechat .usernameInput {
   color: #fff;
   font-weight: 100;
 }
 
 /* Chat page */
 
-.chat.page {
+.chat.pagechat {
   display: none;
 }
 
