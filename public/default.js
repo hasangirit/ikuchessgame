@@ -21,17 +21,19 @@
       socket.on('login', function(msg) {
             usersOnline = msg.users;
             updateUserList();
-            
             myGames = msg.games;
             updateGamesList();
+            console.log("socket.on(login,function(msg) worked");
       });
       
       socket.on('joinlobby', function (msg) {
         addUser(msg);
+        console.log("socket.on(joinlobby,function(msg) worked");
       });
       
        socket.on('leavelobby', function (msg) {
         removeUser(msg);
+        console.log("socket.on(leavelobby,function(msg) worked");
       });
       
       socket.on('gameadd', function(msg) {
@@ -49,7 +51,7 @@
         
         $('#page-lobby').hide();
         $('#page-game').show();
-        
+        console.log("socket.on(joingame,function(msg) worked");
       });
         
       socket.on('move', function (msg) {
@@ -57,11 +59,13 @@
            game.move(msg.move);
            board.position(game.fen());
         }
+        console.log("socket.on(move,function(msg) worked");
       });
      
       
       socket.on('logout', function (msg) {
         removeUser(msg.username);
+        console.log("socket.on(logout,function(msg) worked");
       });
       
 
@@ -78,6 +82,7 @@
             
             $('#page-login').hide();
             $('#page-lobby').show();
+            console.log("$('#login').on('click', function() worked");
         } 
       });
       
@@ -86,6 +91,7 @@
         
         $('#page-game').hide();
         $('#page-lobby').show();
+        console.log("$('#game-back').on('click', function() worked");
       });
       
       $('#game-resign').on('click', function() {
@@ -93,11 +99,13 @@
         
         $('#page-game').hide();
         $('#page-lobby').show();
+        console.log("$('#game-resign').on('click', function() worked");
       });
       
       var addUser = function(userId) {
         usersOnline.push(userId);
         updateUserList();
+        console.log(" var addUser = function(userId) worked");
       };
     
      var removeUser = function(userId) {
@@ -108,6 +116,7 @@
          }
          
          updateUserList();
+         console.log("var removeUser = function(userId) worked");
       };
       
       var updateGamesList = function() {
