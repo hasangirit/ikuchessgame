@@ -33,6 +33,7 @@
     var typing = false;
     var lastTypingTime;
     var $currentInput = $usernameInput.focus();
+
            
       //////////////////////////////
       // Socket.io handlers
@@ -93,6 +94,20 @@
     // CHAT IMP
     ///////////////////////////////////////////////
 
+function setUsername () {
+    //username = cleanInput($usernameInput.val().trim());
+
+    // If the username is valid
+    if (username) {
+      $loginPage.fadeOut();
+      $chatPage.show();
+      $loginPage.off('click');
+      $currentInput = $inputMessage.focus();
+
+      // Tell the server your username
+      socket.emit('add user', username);
+    }
+  }
 
   // Sends a chat message
   function sendMessage () {
@@ -245,13 +260,7 @@
         socket.emit('stop typing');
         typing = false;
       } else {
-        $loginPage.fadeOut();
-        $chatPage.show();
-        $loginPage.off('click');
-        $currentInput = $inputMessage.focus();
-
-        // Tell the server your username
-        socket.emit('add user', username);
+        setUsername();
       }
     }
   });
