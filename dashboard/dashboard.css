@@ -1,5 +1,6 @@
 .gameboard {
 	width: 400px;
+	float: left;
 }
 
 body {

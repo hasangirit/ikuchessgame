@@ -279,11 +279,13 @@
         // checkmate?
         if (game.in_checkmate() === true) {
           status = 'Game over, ' + moveColor + ' is in checkmate.';
+          alert("Game Over");
         }
 
         // draw?
         else if (game.in_draw() === true) {
           status = 'Game over, drawn position';
+          alert("Game Over! DRAW!")
         }
 
         // game still on
