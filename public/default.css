@@ -147,10 +147,10 @@ button[type=submit]:hover {
 
 @font-face {
     font-family: Saucer-BB;
-    src: url(/fonts/SaucerBB.ttf);
+    src: url('/fonts/SaucerBB.ttf');
 }
 
 @font-face {
     font-family: RINGM___;
-    src: url(/fonts/RINGM___.ttf);
+    src: url('/fonts/RINGM___.ttf');
 }
