@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="lib/chessboard-0.3.0.min.css">
     <link rel="stylesheet" href="lib/WinJS.4.0/css/ui-light.css" />
     <link rel="stylesheet" href="/default.css" />
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <div class="page login" id='page-login'>
@@ -43,6 +44,23 @@
       <h3>Online players</h3>
        <div id='userList'>
          No users online
+      </div>
+      <div>
+        <ul class="pages">
+            <li class="chat page">
+              <div class="chatArea">
+                <ul class="messages"></ul>
+              </div>
+              <input class="inputMessage" placeholder="Type here..."/>
+            </li>
+            <li class="login page">
+              <div class="form">
+                <h3 class="title">What's your nickname?</h3>
+                <input class="usernameInput" type="text" maxlength="14" />
+              </div>
+            </li>
+          </ul>
+        </body>
       </div>
     </div>
     <div class="page game" id='page-game'>
