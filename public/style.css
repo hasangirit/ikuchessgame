@@ -4,10 +4,12 @@
   box-sizing: border-box;
 }
 
-
-input {
-font-weight: 300;
+html {
+  font-weight: 300;
   -webkit-font-smoothing: antialiased;
+}
+
+html, input {
   font-family:
     "HelveticaNeue-Light",
     "Helvetica Neue Light",
@@ -18,6 +20,12 @@ font-weight: 300;
     sans-serif;
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 ul {
   list-style: none;
   word-wrap: break-word;
@@ -26,16 +34,16 @@ ul {
 /* Pages */
 
 .pages {
-  height: 500px;
+  height: 100%;
   margin: 0;
   padding: 0;
-  width: 500px;
+  width: 100%;
 }
 
 .page {
-  height: 500px;
+  height: 100%;
   position: absolute;
-  width: 500px;
+  width: 100%;
 }
 
 /* Login Page */
@@ -75,7 +83,7 @@ ul {
 
 .login.page .title, .login.page .usernameInput {
   color: #fff;
-  font-weight: 50;
+  font-weight: 100;
 }
 
 /* Chat page */
