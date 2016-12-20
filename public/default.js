@@ -29,7 +29,6 @@
     var $chatPage = $('.chat.page'); // The chatroom page
 
     // Prompt for setting a username
-
     var connected = false;
     var typing = false;
     var lastTypingTime;
@@ -95,6 +94,20 @@
     // CHAT IMP
     ///////////////////////////////////////////////
 
+function setUsername () {
+    //username = cleanInput($usernameInput.val().trim());
+
+    // If the username is valid
+    if (username) {
+      $loginPage.fadeOut();
+      $chatPage.show();
+      $loginPage.off('click');
+      $currentInput = $inputMessage.focus();
+
+      // Tell the server your username
+      socket.emit('add user', username);
+    }
+  }
 
   // Sends a chat message
   function sendMessage () {
@@ -341,13 +354,6 @@
             
             $('#page-login').hide();
             $('#page-lobby').show();
-            $loginPage.fadeOut();
-            $chatPage.show();
-            $loginPage.off('click');
-            $currentInput = $inputMessage.focus();
-
-      // Tell the server your username
-      socket.emit('add user', username);
             console.log("$('#login').on('click', function() worked");
         } 
       });
