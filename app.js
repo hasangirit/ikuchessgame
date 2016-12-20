@@ -10,11 +10,8 @@ var lobbyUsers = {};
 var users = {};
 var activeGames = {};
 
-
-
-
 app.get('/', function(req, res) {
- res.sendFile(__dirname + '/public/index.html');
+ res.sendFile(__dirname + '/public/default.html');
 
 });
 
@@ -24,10 +21,6 @@ app.get('/dashboard/', function(req, res) {
 
 io.on('connection', function(socket) {
     console.log('new connection ' + socket);
-
-    socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
-    });
     
     socket.on('login', function(userId) {
         console.log(userId + ' joining lobby');
