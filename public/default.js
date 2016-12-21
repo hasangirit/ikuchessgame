@@ -13,7 +13,7 @@
       var usersOnline = [];
       var myGames = [];
       socket = io();
-           
+      var moveColorHandler;
            
       //////////////////////////////
       // Socket.io handlers
@@ -26,6 +26,11 @@
             myGames = msg.games;
             updateGamesList();
             console.log("socket.on(login,function(msg) worked");
+      });
+
+      socket.on('game-quit', function(msg) {
+            game.game_over = true;
+            console.log("socket.on('game-quit', function(msg) worked");
       });
       
       socket.on('joinlobby', function (msg) {
@@ -87,6 +92,12 @@
             console.log("$('#login').on('click', function() worked");
         } 
       });
+
+      $('#game-quit').on('click', function() {
+        game.game_over=true;
+        alert("Game over, just resigned.");
+        console.log("$('#game-quit').on('click', function() worked");
+      });
       
       $('#game-back').on('click', function() {
         socket.emit('login', username);
@@ -142,6 +153,7 @@
                         }));
         });
       };
+
            
       //////////////////////////////
       // Chess Game
@@ -307,6 +319,8 @@
         statusEl.html(status);
         fenEl.html(game.fen());
         pgnEl.html(game.pgn());
+       // if(moveColor=='Black')
+        moveColorHandler=moveColor;
       };
       updateStatus();
 
