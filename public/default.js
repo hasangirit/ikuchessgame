@@ -25,8 +25,8 @@
     var $messages = $('.messages'); // Messages area
     var $inputMessage = $('.inputMessage'); // Input message input box
 
-    var $loginPage = $('.login.page'); // The login page
-    var $chatPage = $('.chat.page'); // The chatroom page
+    var $loginPage = $('.loginchat.pagechat'); // The login page
+    var $chatPage = $('.chat.pagechat'); // The chatroom page
 
     // Prompt for setting a username
     var connected = false;
@@ -94,20 +94,6 @@
     // CHAT IMP
     ///////////////////////////////////////////////
 
-function setUsername () {
-    //username = cleanInput($usernameInput.val().trim());
-
-    // If the username is valid
-    if (msg.username) {
-      $loginPage.fadeOut();
-      $chatPage.show();
-      $loginPage.off('click');
-      $currentInput = $inputMessage.focus();
-
-      // Tell the server your username
-      socket.emit('add user', msg.username);
-    }
-  }
 
   // Sends a chat message
   function sendMessage () {
@@ -143,7 +129,7 @@ function setUsername () {
     }
 
     var $usernameDiv = $('<span class="username"/>')
-      .text(data.username)
+      .text(msg.username)
       .css('color', getUsernameColor(msg.username));
     var $messageBodyDiv = $('<span class="messageBody">')
       .text(data.message);
@@ -260,7 +246,11 @@ function setUsername () {
         socket.emit('stop typing');
         typing = false;
       } else {
-        setUsername();
+        $chatPage.show();
+        $currentInput = $inputMessage.focus();
+
+        // Tell the server your username
+        socket.emit('add user', msg.username);
       }
     }
   });
@@ -284,7 +274,7 @@ function setUsername () {
   // Socket events
 
   // Whenever the server emits 'login', log the login message
-  socket.on('login', function (data) {
+  socket.on('loginchat', function (data) {
     connected = true;
     // Display the welcome message
     var message = "Welcome to Socket.IO Chat – ";
