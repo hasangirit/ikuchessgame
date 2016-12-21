@@ -104,7 +104,7 @@
     if (message && connected) {
       $inputMessage.val('');
       addChatMessage({
-        username: msg.username,
+        username: username,
         message: message
       });
       // tell server to execute 'new message' and send along one parameter
@@ -129,14 +129,14 @@
     }
 
     var $usernameDiv = $('<span class="username"/>')
-      .text(msg.username)
-      .css('color', getUsernameColor(msg.username));
+      .text(username)
+      .css('color', getUsernameColor(username));
     var $messageBodyDiv = $('<span class="messageBody">')
       .text(data.message);
 
     var typingClass = data.typing ? 'typing' : '';
     var $messageDiv = $('<li class="message"/>')
-      .data('username', msg.username)
+      .data('username', username)
       .addClass(typingClass)
       .append($usernameDiv, $messageBodyDiv);
 
@@ -216,7 +216,7 @@
   // Gets the 'X is typing' messages of a user
   function getTypingMessages (data) {
     return $('.typing.message').filter(function (i) {
-      return $(this).data('username') === msg.username;
+      return $(this).data('username') === username;
     });
   }
 
@@ -241,7 +241,7 @@
     }
     // When the client hits ENTER on their keyboard
     if (event.which === 13) {
-      if (msg.username) {
+      if (username) {
         sendMessage();
         socket.emit('stop typing');
         typing = false;
@@ -250,7 +250,7 @@
         $currentInput = $inputMessage.focus();
 
         // Tell the server your username
-        socket.emit('add user', msg.username);
+        socket.emit('add user', username);
       }
     }
   });
@@ -291,13 +291,13 @@
 
   // Whenever the server emits 'user joined', log it in the chat body
   socket.on('user joined', function (data) {
-    log(msg.username + ' joined');
+    log(username + ' joined');
     addParticipantsMessage(data);
   });
 
   // Whenever the server emits 'user left', log it in the chat body
   socket.on('user left', function (data) {
-    log(msg.username + ' left');
+    log(username + ' left');
     addParticipantsMessage(data);
     removeChatTyping(data);
   });
@@ -316,10 +316,10 @@
     log('you have been disconnected');
   });
 
-  socket.on('reconnect', function (msg) {
+  socket.on('reconnect', function () {
     log('you have been reconnected');
-    if (msg.username) {
-      socket.emit('add user', msg.username);
+    if (username) {
+      socket.emit('add user', username);
     }
   });
 
