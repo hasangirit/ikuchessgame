@@ -13,7 +13,6 @@
       var usersOnline = [];
       var myGames = [];
       socket = io();
-      var moveColorHandler;
            
       //////////////////////////////
       // Socket.io handlers
@@ -218,7 +217,7 @@
     
       var move;
       var onDrop = function(source, target) {
-        removeGreySquares();
+       // removeGreySquares();
         // see if the move is legal
         move = game.move({
           from: source,
@@ -250,7 +249,7 @@
       };
 
       var onMouseoverSquare = function(square, piece) {
-        //console.log("onMouseoverSquare çağırıldı");
+        console.log("onMouseoverSquare çağırıldı");
   // get list of possible moves for this square
            moves = game.moves({
             square: square,
@@ -317,10 +316,8 @@
         console.log(moveColor + " ::"+ move.piece +":: "+move.from+"->"+move.to);
 
         statusEl.html(status);
-        fenEl.html(game.fen());
         pgnEl.html(game.pgn());
        // if(moveColor=='Black')
-        moveColorHandler=moveColor;
       };
       updateStatus();
 
